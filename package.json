@@ -1,0 +1,27 @@
+{
+  "name": "ppgs-pg",
+  "version": "0.0.1",
+  "description": "PPG's Promise Generator Library",
+  "main": "index.js",
+  "dependencies": {
+    "co": "*"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "chai": "*",
+    "chai-as-promised": "*",
+    "coffee-script": "*",
+    "gauss-random": "*"
+  },
+  "scripts": {
+    "test": "node_modules/mocha/bin/mocha --compilers coffee:coffee-script/register",
+    "pipeline-benchmark": "node pipeline-benchmark.js"
+  },
+  "keywords": [
+    "promise",
+    "generator",
+    "nodejs"
+  ],
+  "author": "Botao Pan",
+  "license": "MIT"
+}
