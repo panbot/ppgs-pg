@@ -150,6 +150,36 @@ Catching the error.
 ```js
 pipeline.get().catch((e) => { e == 'my error' });
 ```
+
+### A Helper Function
+
+A helper function that converts an array of functions/generator into a pipeline
+
+```js
+var pipelinefy = require('ppgs-pg').pipelinefy;
+
+var pipeline = pipelinefy(
+    // an array of functions/generators/station configuration objects
+    [
+        function (x) { /* ...  */ },
+        function *(x) { /* ... */ },
+        { // this has the same structure as Pipeline#addStation(opts)
+            f: function *() { /* ...  */ },
+            minWorker: 2,
+            maxWorker: 10
+        }
+    ],
+    // pipeline configurations & default station parameters
+    {
+        feed: new Queue(1),
+        queueCapacity: 5,
+        minWorker: 1,
+        maxWorker: 1
+    });
+
+// use pipeline
+```
+
 ### Benchmarking
 ```sh
 npm run pipeline-benchmark

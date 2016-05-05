@@ -1,29 +1,30 @@
 "use strict";
 
 const co = require('co');
-const Pipeline = require('./lib/pipeline');
+const pg = require('./index');
 
 function wait(ms) { return new Promise(resolve => setTimeout(resolve, ms || 1)) }
 
-var pipeline = new Pipeline(10);
-
-pipeline.addStation({
-    maxWorkers: 5,
-    minWorkers: 2,
-    f: function *(x) {
-        yield wait(2);
-        return Promise.resolve(x + 1);
-    }
-})
-
-pipeline.addStation({
-    maxWorkers: 5,
-    minWorkers: 2,
-    f: function *(x) {
-        yield wait(5);
-        return Promise.resolve(x * 2);
-    }
-})
+var pipeline = pg.pipelinefy([
+        function *(x) {
+            yield wait(2);
+            return Promise.resolve(x + 1);
+        },
+        function *(x) {
+            yield wait(5);
+            return Promise.resolve(x * 2);
+        },
+        {
+            f: function *(x) {
+                yield wait(10);
+                return Promise.resolve(x * x);
+            }
+        }
+    ], {
+        maxWorkers: 5,
+        minWorkers: 2,
+        queueCapacity: 1
+    });
 
 co(function *() {
     for (var i = 0; i < 10; ++i) {
