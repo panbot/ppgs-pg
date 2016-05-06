@@ -20,7 +20,8 @@
   "keywords": [
     "promise",
     "generator",
-    "nodejs"
+    "pipeline",
+    "queue"
   ],
   "author": "Botao Pan",
   "license": "MIT"
