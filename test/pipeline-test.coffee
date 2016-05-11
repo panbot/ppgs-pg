@@ -6,7 +6,7 @@ chai.should()
 expect = chai.expect
 { resolved, wait } = require './util'
 co = require 'co'
-Pipeline = require '../lib/pipeline.js'
+{ Pipeline } = require '../index'
 
 describe 'Pipeline', ->
     it 'processes data with configured functions in configured order', ->

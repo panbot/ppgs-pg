@@ -5,7 +5,7 @@ chai.use require 'chai-as-promised'
 chai.should()
 expect = chai.expect
 { resolved } = require './util'
-Channel = require '../lib/channel'
+{ Channel } = require '../index'
 
 describe 'Channel', ->
     describe '#get()', ->

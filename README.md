@@ -190,6 +190,55 @@ pipeline-example.js
 
 ---
 
+## Select
+
+A function to select available channels and queues. It mimics the behavior of the [select][] statement in Go, except that it can only select reading.
+
+This is an example that produces the first 10 elements in the Fibonacci sequence
+
+```js
+"use strict";
+
+var { Queue, Channel, select } = require('ppgs-pg');
+var co = require('co');
+
+var c = new Channel,
+    next = new Channel,
+    quit = new Channel;
+
+co(function *() {
+    var n0 = 0, n1 = 1;
+    var f = select([next, quit]);
+    while (true) {
+        var { s, x } = yield f();
+        if (s === next) {
+            yield c.put(n1);
+            var tmp = n1;
+            n1 = n1 + n0;
+            n0 = tmp;
+        } else if (s === quit) {
+            console.log('quit');
+            break;
+        }
+    }
+});
+
+co(function *() {
+    for (var i = 0; i < 10; ++i) {
+        yield next.put(0);
+    }
+    yield quit.put(0);
+});
+
+co(function *() {
+    while (true) {
+        console.log(yield c.get());
+    }
+});
+```
+
+---
+
 ## Tests
 ```sh
 npm test
@@ -202,3 +251,4 @@ npm test
 [Promises]:https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise
 [pipeline]:https://en.wikipedia.org/wiki/Pipeline_(computing)
 [concurrently]:https://vimeo.com/49718712
+[select]:https://tour.golang.org/concurrency/5

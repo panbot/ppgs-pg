@@ -7,7 +7,7 @@ expect = chai.expect
 { resolved, wait } = require './util'
 Worker = require '../lib/pipeline/worker'
 Packet = require '../lib/pipeline/packet'
-Queue = require '../lib/queue'
+{ Queue } = require '../index'
 
 describe 'Worker', ->
     it 'gets items from feed and puts the results into drain after processing', ->

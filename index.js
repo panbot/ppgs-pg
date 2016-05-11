@@ -29,3 +29,5 @@ exports.pipelinefy = function (arrOfFuncs, opts) {
 
     return pipeline;
 };
+
+exports.select = require('./lib/select');

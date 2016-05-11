@@ -6,7 +6,7 @@ co = require 'co'
 chai.should()
 expect = chai.expect
 { resolved } = require './util'
-Queue = require '../lib/queue';
+{ Queue } = require '../index';
 
 describe 'Queue', ->
 

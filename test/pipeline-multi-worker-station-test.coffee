@@ -8,7 +8,7 @@ expect = chai.expect
 Worker = require '../lib/pipeline/worker'
 Station = require '../lib/pipeline/multi-worker-station'
 Packet = require '../lib/pipeline/packet'
-Queue = require '../lib/queue'
+{ Queue } = require '../index'
 co = require 'co'
 
 describe 'MultiWorkerStation', ->
