@@ -194,7 +194,7 @@ pipeline-example.js
 
 A function to select available channels and queues. It mimics the behavior of the [select][] statement in Go, except that it can only select reading.
 
-This is an example that produces the first 10 elements in the Fibonacci sequence
+This is an example that produces the first 10 elements in the Fibonacci sequence.
 
 ```js
 "use strict";
