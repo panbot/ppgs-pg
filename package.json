@@ -1,6 +1,6 @@
 {
   "name": "ppgs-pg",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "PPG's Promise Generator Library",
   "main": "index.js",
   "dependencies": {
