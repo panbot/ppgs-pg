@@ -186,7 +186,7 @@ npm run pipeline-benchmark
 ```
 
 ### An Example
-pipeline-example.js
+[pipeline-example.js][]
 
 ---
 
@@ -194,6 +194,7 @@ pipeline-example.js
 
 A function to select available channels and queues. It mimics the behavior of the [select][] statement in Go, except that it can only select reading.
 
+### An example
 This is an example that produces the first 10 elements in the Fibonacci sequence.
 
 ```js
@@ -237,6 +238,9 @@ co(function *() {
 });
 ```
 
+### Another Example
+[readers-writer-lock-example.js][] is another example that implements a readers-writer lock using channels and select.
+
 ---
 
 ## Tests
@@ -244,11 +248,10 @@ co(function *() {
 npm test
 ```
 
-
-
-
 [CSP]:http://en.wikipedia.org/wiki/Communicating_sequential_processes
 [Promises]:https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Promise
 [pipeline]:https://en.wikipedia.org/wiki/Pipeline_(computing)
 [concurrently]:https://vimeo.com/49718712
 [select]:https://tour.golang.org/concurrency/5
+[pipeline-example.js]:https://github.com/panbot/ppgs-pg/blob/master/pipeline-example.js
+[readers-writer-lock-example.js]:https://github.com/panbot/ppgs-pg/blob/master/readers-writer-lock-example.js
