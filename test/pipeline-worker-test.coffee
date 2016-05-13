@@ -4,7 +4,7 @@ chai = require 'chai'
 chai.use require 'chai-as-promised'
 chai.should()
 expect = chai.expect
-{ resolved, wait } = require './util'
+{ resolved, sleep } = require './util'
 Worker = require '../lib/pipeline/worker'
 Packet = require '../lib/pipeline/packet'
 { Queue } = require '../index'
@@ -14,7 +14,7 @@ describe 'Worker', ->
         feed = new Queue(5)
         drain = new Queue(5)
         f = (o) ->
-            yield wait(10)
+            yield sleep(10)
             Promise.resolve o * 2
 
         w = new Worker({
@@ -56,7 +56,7 @@ describe 'Worker', ->
         )
 
         p.push(test (o) ->
-            yield wait 1
+            yield sleep 1
             throw o
             Promise.resolve o
         )
@@ -90,7 +90,7 @@ describe 'Worker', ->
         feed = new Queue(5)
         drain = new Queue(5)
         f = (o) ->
-            yield wait 10
+            yield sleep 10
             Promise.resolve o
 
         w = new Worker({
@@ -101,7 +101,7 @@ describe 'Worker', ->
 
         o = Math.random()
         feed.put new Packet(Math.random())
-        wait(1).then(-> w.isWorking()).should.eventually.be.true
+        sleep(1).then(-> w.isWorking()).should.eventually.be.true
 
     it 'can be stopped', ->
         feed = new Queue(5)

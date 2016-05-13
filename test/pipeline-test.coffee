@@ -4,7 +4,7 @@ chai = require 'chai'
 chai.use require 'chai-as-promised'
 chai.should()
 expect = chai.expect
-{ resolved, wait } = require './util'
+{ resolved, sleep } = require './util'
 co = require 'co'
 { Pipeline } = require '../index'
 
@@ -29,20 +29,20 @@ describe 'Pipeline', ->
         p = new Pipeline
         p.addStation({
                 f: (o) ->
-                    yield wait 5
+                    yield sleep 5
                     Promise.resolve o + 1
             })
 
         p.addStation({
                 f: (o) ->
-                    yield wait 5
+                    yield sleep 5
                     Promise.resolve o * 2
             })
 
         co ->
             while true
                 yield p.put 1
-                yield wait 1
+                yield sleep 1
 
         co ->
             while true
@@ -52,9 +52,9 @@ describe 'Pipeline', ->
         co ->
             while true
                 cMax = Math.max cMax, p.getConcurrency()
-                yield wait 1
+                yield sleep 1
 
-        wait(50).then(-> Promise.resolve cMax).should.eventually.equal 2
+        sleep(50).then(-> Promise.resolve cMax).should.eventually.equal 2
 
     describe '#get()', ->
         it 'rejects with error if any happens', ->

@@ -3,20 +3,20 @@
 const co = require('co');
 const pg = require('./index');
 
-function wait(ms) { return new Promise(resolve => setTimeout(resolve, ms || 1)) }
+function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms || 1)) }
 
 var pipeline = pg.pipelinefy([
         function *(x) {
-            yield wait(2);
+            yield sleep(2);
             return Promise.resolve(x + 1);
         },
         function *(x) {
-            yield wait(5);
+            yield sleep(5);
             return Promise.resolve(x * 2);
         },
         {
             f: function *(x) {
-                yield wait(10);
+                yield sleep(10);
                 return Promise.resolve(x * x);
             }
         }

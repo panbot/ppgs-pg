@@ -1,12 +1,12 @@
 "use strict";
 
-var wait = (ms) => {
+var sleep = (ms) => {
     return new Promise(resolve => setTimeout(resolve, ms || 1))
 }
-exports.wait = wait;
+exports.sleep = sleep;
 
 exports.resolved = (p) => {
     var resolved = false;
     p.then(() => resolved = true);
-    return wait().then(() => { return Promise.resolve(resolved) })
+    return sleep().then(() => { return Promise.resolve(resolved) })
 }

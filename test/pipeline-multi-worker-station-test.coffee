@@ -4,7 +4,7 @@ chai = require 'chai'
 chai.use require 'chai-as-promised'
 chai.should()
 expect = chai.expect
-{ resolved, wait } = require './util'
+{ resolved, sleep } = require './util'
 Worker = require '../lib/pipeline/worker'
 Station = require '../lib/pipeline/multi-worker-station'
 Packet = require '../lib/pipeline/packet'
@@ -31,7 +31,7 @@ describe 'MultiWorkerStation', ->
         feed = new Queue(100)
         drain = new Queue(100)
         f = (o) ->
-            yield wait 10
+            yield sleep 10
             Promise.resolve o
 
         s = new Station({
@@ -45,26 +45,26 @@ describe 'MultiWorkerStation', ->
         co ->
             while true
                 yield feed.put Math.random()
-                yield wait 1
+                yield sleep 1
 
         co ->
             while true
                 yield drain.get()
-                yield wait 1
+                yield sleep 1
 
         maxWorkers = 0;
         co ->
             while true
-                yield wait 5
+                yield sleep 5
                 maxWorkers = Math.max maxWorkers, s.getCurrentWorkers()
 
-        wait(50).then(-> maxWorkers).should.eventually.equal 5
+        sleep(50).then(-> maxWorkers).should.eventually.equal 5
 
     it 'generates a state that shows if the any of the workers is working', ->
         feed = new Queue(100)
         drain = new Queue(100)
         f = (o) ->
-            yield wait 10
+            yield sleep 10
             yield Promise.resolve o
 
         s = new Station({
@@ -80,11 +80,11 @@ describe 'MultiWorkerStation', ->
         co ->
             while true
                 yield feed.put Math.random()
-                yield wait 1
+                yield sleep 1
 
         co ->
             while true
                 yield drain.get()
-                yield wait 1
+                yield sleep 1
 
-        wait(5).then(-> s.isWorking()).should.eventually.be.true
+        sleep(5).then(-> s.isWorking()).should.eventually.be.true

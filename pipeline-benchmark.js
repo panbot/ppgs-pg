@@ -16,7 +16,7 @@ const fCoef = 3;
 const maxWorkers = 5;
 
 // to simulate a time consuming work
-function wait(ms) {
+function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms || 1))
 }
 
@@ -27,7 +27,7 @@ function fFactory() {
     // use a normal distributed random number generator
     var n = Math.floor(nrand() * fCoef);
     return () => {
-        return wait(n).then(() => ++callCount)
+        return sleep(n).then(() => ++callCount)
     }
 };
 
